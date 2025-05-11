@@ -57,6 +57,7 @@ number_text = len(TEXTS)
 user = input("username: ")
 password = input("password: ")
 print(oddelovac)
+# Vyřešit, jestli je správně zadáno jméno a heslo
 if users.get(user) != password:
     print(f"username:  {user}\npassword: {password}")
     print("unregistered user, terminating the program..")
@@ -64,5 +65,67 @@ if users.get(user) != password:
 print(f"Welcome to the app, {user}")
 print(f"We have {number_text} texts to be analyzed.")
 print(oddelovac)
-your_nmbr_choice = input("Enter a number btw. 1 and 3 to select: ")
+# Vyřešit, jestli zadal uživatel číslo textu v rozmezí počtu textů
+your_nmbr_choice = input(f"Enter a number btw. 1 and {number_text} to select: ")
+if not your_nmbr_choice.isdigit() or int(your_nmbr_choice) not in range(1, number_text + 1):
+    print("This is not right number, terminating program..")
+    quit()
+else:
+    print(oddelovac)
+# Vybrané číslo textu od uživatele
+selected_text = TEXTS[int(your_nmbr_choice) - 1]
+# ...
+# A jedem statistiky:
+#   --- 1. Počet slov
+#   --- 2. Počet slov začínajících velkým písmenem,
+#   --- 3. Počet slov psaných velkými písmeny
+#   --- 4. Počet slov psaných malými písmeny
+#   --- 5. Počet čísel (ne cifer)
+#   --- 6. Sumu všech čísel (ne cifer) v textu
+# ...
+# proměnné
+word_count = 0
+word_start_title = 0
+word_upper = 0
+word_lower = 0
+word_isdigit = 0
+sum_digit_number = 0
 
+#Projít text
+words = []
+for word in selected_text.split():
+    word_alone = word.strip(",.-")
+    words.append(word_alone)
+# Text rozdělíme na řetězce. Vyjmeme čárky, tečky a možná i pomlčky.
+for word in words:
+    if word == " ":
+        continue
+# Pokud tam je mezera. Jedeme dál s počítáme bez mezer.
+    word_count += 1
+# 1. hotová, jedeme další body.
+    if word.istitle():
+        word_start_title += 1
+    if word.isupper():
+        word_upper += 1
+    if word.islower():
+        word_lower += 1
+    if word.isdigit():
+        word_isdigit +=1 #čísla a cifry, př.: 198 je čílo a cifry jsou 1,9,8
+        sum_digit_number += int(word)
+# Teď ty printy
+print(f"There are {word_count} words in the selected text.")
+print(f"There are {word_start_title} titlecase words.")
+print(f"There are {word_upper} uppercase words")
+print(f"There are {word_lower} lowercase words")
+print(f"There are {word_isdigit} numeric strings")
+print(f"The sum of all the numbers {sum_digit_number}")
+print(oddelovac)
+# A teď ta tabulka
+# Udělám proměnnou delka slovníku
+dict_length: dict[int, int] = {}
+# Musím udělat přičítání délky
+for word in words:
+    length = len(word)
+    dict_length[length] = dict_length.get(length, 0) + 1
+print("LEN| OCCURENCES  |NR.")
+print()
