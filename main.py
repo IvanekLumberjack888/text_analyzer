@@ -127,5 +127,7 @@ dict_length: dict[int, int] = {}
 for word in words:
     length = len(word)
     dict_length[length] = dict_length.get(length, 0) + 1
-print("LEN| OCCURENCES  |NR.")
-print()
+print(" LEN|    OCCURENCES       |NR.")
+print(oddelovac)
+for length in sorted(dict_length):
+    print(f" {length:>3}| {'*' * dict_length[length]:<20}| {dict_length[length]}")
