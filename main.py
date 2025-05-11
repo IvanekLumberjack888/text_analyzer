@@ -121,7 +121,7 @@ print(f"There are {word_isdigit} numeric strings")
 print(f"The sum of all the numbers {sum_digit_number}")
 print(oddelovac)
 # A teď ta tabulka
-# Udělám proměnnou delka slovníku
+# Udělám proměnnou delka slovna/níku
 dict_length: dict[int, int] = {}
 # Musím udělat přičítání délky
 for word in words:
@@ -129,5 +129,8 @@ for word in words:
     dict_length[length] = dict_length.get(length, 0) + 1
 print(" LEN|    OCCURENCES       |NR.")
 print(oddelovac)
+# Pro každé slovo (délku) spočítá - kolikát se vyskytl jako kdyby znak.
 for length in sorted(dict_length):
+# Ten znak pak odsadí a vypočítá kolikrát se vyskytuje. Vynásobí hvězdičkou a číslo-kolikrát zapíše.
     print(f" {length:>3}| {'*' * dict_length[length]:<20}| {dict_length[length]}")
+print()
