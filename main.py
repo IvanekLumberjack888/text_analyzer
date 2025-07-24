@@ -1,23 +1,19 @@
 ## Text analyzer
-'''
+"""
 projekt_1.py: první projekt Engeto Online Python Akademie
 
 autor: Ivo Doležal
 email: ivousd@seznam.cz
-'''
+"""
 
 ## Aplikace, kde má registovaný uživatel možnost analyzovat texty.
 
 # Vstupní tabulka s údaji.-> Registovaní uživatelé a hesla.
-users = {
-    "bob": "123", 
-    "ann": "pass123", 
-    "mike": "password123", 
-    "liz": "pass123"
-    }
+users = {"bob": "123", "ann": "pass123", "mike": "password123", "liz": "pass123"}
 
 # Texty k anylýze
-TEXTS = ['''"Situated about 10 miles west of Kemmerer,
+TEXTS = [
+    '''"Situated about 10 miles west of Kemmerer,
     Fossil Butte is a ruggedly impressive
     topographic feature that rises sharply
     some 1000 feet above Twin Creek Valley
@@ -41,7 +37,7 @@ TEXTS = ['''"Situated about 10 miles west of Kemmerer,
     represent several varieties of perch, as well as
     other freshwater genera and herring similar to those
     in modern oceans. Other fish such as paddlefish,
-    garpike and stingray are also present."'''
+    garpike and stingray are also present."''',
 ]
 
 # Oddělovač
@@ -63,7 +59,9 @@ else:
     print(separator)
 
 # Vyřešit, jestli zadal uživatel číslo textu v rozmezí počtu textů
-user_choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ").strip()  # odstraní mezery na začátku a konci
+user_choice = input(
+    f"Enter a number btw. 1 and {len(TEXTS)} to select: "
+).strip()  # odstraní mezery na začátku a konci
 if not user_choice.isdigit() or int(user_choice) not in range(1, len(TEXTS) + 1):
     print("This is not right number, terminating program..")
     quit()
@@ -134,7 +132,7 @@ print(" LEN|    OCCURENCES       |NR.")
 print(separator)
 # Pro každé slovo (délku) spočítá - kolikát se vyskytl jako kdyby znak.
 for length in sorted(lengths):
-    stars = '*' * lengths[length]  # Vytvoří hvězdičky podle počtu výskytů
+    stars = "*" * lengths[length]  # Vytvoří hvězdičky podle počtu výskytů
     print(f" {length:>3}| {stars:<20}| {lengths[length]}")
 print()
 
