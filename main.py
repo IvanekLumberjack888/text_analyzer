@@ -137,3 +137,5 @@ for length in sorted(lengths):
     stars = '*' * lengths[length]  # Vytvoří hvězdičky podle počtu výskytů
     print(f" {length:>3}| {stars:<20}| {lengths[length]}")
 print()
+
+# Čas refaktoringu 2:45 h
