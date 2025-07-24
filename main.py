@@ -9,7 +9,6 @@ email: ivousd@seznam.cz
 ## Aplikace, kde má registovaný uživatel možnost analyzovat texty.
 
 # Vstupní tabulka s údaji.-> Registovaní uživatelé a hesla.
-
 users = {
     "bob": "123", 
     "ann": "pass123", 
@@ -18,7 +17,6 @@ users = {
     }
 
 # Texty k anylýze
-
 TEXTS = ['''"Situated about 10 miles west of Kemmerer,
     Fossil Butte is a ruggedly impressive
     topographic feature that rises sharply
@@ -46,34 +44,35 @@ TEXTS = ['''"Situated about 10 miles west of Kemmerer,
     garpike and stingray are also present."'''
 ]
 
-# oddělovač
+# Oddělovač
+separator = "-" * 40
 
-oddelovac = "-" * 40
+# Přihlášení uživatele
+print("Welcome to the app, please log in.")
+user = input("username: ").strip()  # odstraní mezery na začátku a konci
+password = input("password: ").strip()  # odstraní mezery na začátku a konci
+print(separator)
 
-number_text = len(TEXTS)
-
-# Zadání jména a hesla.
-
-user = input("username: ")
-password = input("password: ")
-print(oddelovac)
-# Vyřešit, jestli je správně zadáno jméno a heslo
+# Vyřešit, jestli je uživatel zaregistrován
 if users.get(user) != password:
-    print(f"username:  {user}\npassword: {password}")
-    print("unregistered user, terminating the program..")
+    print("Unregistered user or wrong password, terminating program..")
     quit()
-print(f"Welcome to the app, {user}")
-print(f"We have {number_text} texts to be analyzed.")
-print(oddelovac)
+else:
+    print(f"Welcome to the app, {user}")
+    print(f"We have {len(TEXTS)} texts to analyze.")
+    print(separator)
+
 # Vyřešit, jestli zadal uživatel číslo textu v rozmezí počtu textů
-your_nmbr_choice = input(f"Enter a number btw. 1 and {number_text} to select: ")
-if not your_nmbr_choice.isdigit() or int(your_nmbr_choice) not in range(1, number_text + 1):
+user_choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ").strip()  # odstraní mezery na začátku a konci
+if not user_choice.isdigit() or int(user_choice) not in range(1, len(TEXTS) + 1):
     print("This is not right number, terminating program..")
     quit()
 else:
-    print(oddelovac)
+    print(separator)
+
 # Vybrané číslo textu od uživatele
-selected_text = TEXTS[int(your_nmbr_choice) - 1]
+selected_text = TEXTS[int(user_choice) - 1]
+
 # ...
 # A jedem statistiky:
 #   --- 1. Počet slov
@@ -83,54 +82,58 @@ selected_text = TEXTS[int(your_nmbr_choice) - 1]
 #   --- 5. Počet čísel (ne cifer)
 #   --- 6. Sumu všech čísel (ne cifer) v textu
 # ...
-# proměnné
+# Proměnné
 word_count = 0
-word_start_title = 0
-word_upper = 0
-word_lower = 0
-word_isdigit = 0
-sum_digit_number = 0
+titlecase_count = 0
+uppercase_count = 0
+lowercase_count = 0
+numeric_count = 0
+sum_numbers = 0
+# bez importu, Python 3.9+
+lengths: dict[int, int] = {}
 
-#Projít text
+# Projít text
 words = []
-for word in selected_text.split():
-    word_alone = word.strip(",.-")
-    words.append(word_alone)
-# Text rozdělíme na řetězce. Vyjmeme čárky, tečky a možná i pomlčky.
-for word in words:
-    if word == " ":
+for raw in selected_text.split():
+    clean = raw.strip(",.-")  # odstraní čárky, tečky a pomlčky
+    clean = clean.strip('"')  # odstraní uvozovky
+    clean = clean.strip("'")  # odstraní apostrofy
+    if not clean:
         continue
-# Pokud tam je mezera. Jedeme dál s počítáme bez mezer.
+
+    # Pro každé slovo spočítá - kolikát se vyskytlo, jestli je titlecase, uppercase, lowercase, numeric
+    # a spočítá délku slova.
     word_count += 1
-# 1. hotová, jedeme další body.
-    if word.istitle():
-        word_start_title += 1
-    if word.isupper():
-        word_upper += 1
-    if word.islower():
-        word_lower += 1
-    if word.isdigit():
-        word_isdigit +=1 #čísla a cifry, př.: 198 je čílo a cifry jsou 1,9,8
-        sum_digit_number += int(word)
+    if clean.istitle():
+        titlecase_count += 1
+    if clean.isupper():
+        uppercase_count += 1
+    if clean.islower():
+        lowercase_count += 1
+    if clean.isdigit():
+        numeric_count += 1
+        sum_numbers += int(clean)
+    length = len(clean)
+    lengths[length] = lengths.get(length, 0) + 1
+    words.append(clean)
+
 # Teď ty printy
 print(f"There are {word_count} words in the selected text.")
-print(f"There are {word_start_title} titlecase words.")
-print(f"There are {word_upper} uppercase words")
-print(f"There are {word_lower} lowercase words")
-print(f"There are {word_isdigit} numeric strings")
-print(f"The sum of all the numbers {sum_digit_number}")
-print(oddelovac)
+print(f"There are {titlecase_count} titlecase words.")
+print(f"There are {uppercase_count} uppercase words")
+print(f"There are {lowercase_count} lowercase words")
+print(f"There are {numeric_count} numbers.")
+print(f"The sum of all the numbers {sum_numbers}")
+print(separator)
+
 # A teď ta tabulka
-# Udělám proměnnou delka slovna/níku
+# Udělám proměnnou delka slova/níku
 dict_length: dict[int, int] = {}
-# Musím udělat přičítání délky
-for word in words:
-    length = len(word)
-    dict_length[length] = dict_length.get(length, 0) + 1
+
 print(" LEN|    OCCURENCES       |NR.")
-print(oddelovac)
+print(separator)
 # Pro každé slovo (délku) spočítá - kolikát se vyskytl jako kdyby znak.
-for length in sorted(dict_length):
-# Ten znak pak odsadí a vypočítá kolikrát se vyskytuje. Vynásobí hvězdičkou a číslo-kolikrát zapíše.
-    print(f" {length:>3}| {'*' * dict_length[length]:<20}| {dict_length[length]}")
+for length in sorted(lengths):
+    stars = '*' * lengths[length]  # Vytvoří hvězdičky podle počtu výskytů
+    print(f" {length:>3}| {stars:<20}| {lengths[length]}")
 print()
