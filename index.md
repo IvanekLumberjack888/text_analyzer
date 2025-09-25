@@ -1,3 +1,5 @@
+Přehled mých projektu je ne webu: [https://ivaneklumberjack888.github.io/]
+<https://ivaneklumberjack888.github.io/#projects>
 # ✍️ Text Analyzer
 Vítej u mého prvního projektu Text Analyzer!
 Cílem této jednoduché konzolové aplikace je provádět základní analýzu zadaného textu (například článku) a poskytnout klíčové statistiky, jako je počet slov, vět a frekvence slov.
