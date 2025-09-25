@@ -1,4 +1,4 @@
-Přehled mých projektu je ne webu: [https://ivaneklumberjack888.github.io/]
+Přehled mých projektů je ne webu:
 <https://ivaneklumberjack888.github.io/#projects>
 # ✍️ Text Analyzer
 Vítej u mého prvního projektu Text Analyzer!
