@@ -1,3 +1,6 @@
+---
+title: text_analyzer
+---
 Přehled mých projektů je ne webu:
 <https://ivaneklumberjack888.github.io/#projects>
 # ✍️ Text Analyzer
